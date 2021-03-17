@@ -1,0 +1,33 @@
+---Logic---
+[X] Knight attack
+[] Collision detection - what's the approach
+
+---Drawing---
+[X] Draw projectiles over targets
+
+---Heroes---
+[X] delay between everything (attack, specialAttack)
+[X] moveToTarget()
+[X] nearestAlly()
+[X] nearestEnemy()
+[X] allyWithLowestHP()
+[X] enemyWithLowestHP()
+[X] allyInRange()
+[X] enemyInRange()
+[X] specialAttack(Hero* target)
+[] middleOfAllies()
+[] middleOfEnemies()
+[] midleOfBoard()
+[] change 'rateOfAttack' to 'delayBetweenAttack'
+
+---Items---
+[] medKit
+[] speed
+[] nearestMedKit()
+[] nearestSpeed()
+
+---AI---
+[] Multiple AIs; vector of pointers to function???
+
+---Documentation---
+[] Doxygen
