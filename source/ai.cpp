@@ -4,9 +4,22 @@ void Ai::play()
 {
     for(auto ent : entities)
     {
-        if (ent->nearestEnemy(heroes))
-            ent->setDestination(ent->nearestEnemy(heroes)->getSprite()->getPosition()); 
+        switch (ent->getAiID())
+        {
+        case 1:
+            if (ent->nearestEnemy(heroes))
+                ent->setDestination(ent->nearestEnemy(heroes)->getSprite()->getPosition()); 
+            break;
+        
+        default:
+            break;
+        }
     }
+}
+
+void Ai::add(Hero *ent)
+{
+    entities.push_back(ent);
 }
 
 Ai::Ai(std::vector<Hero*> *heroesPtr, std::vector<Projectile*> *projectilesPtr)

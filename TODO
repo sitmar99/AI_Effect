@@ -27,7 +27,16 @@
 [] nearestSpeed()
 
 ---AI---
-[] Multiple AIs; vector of pointers to function???
+[-] Multiple AIs; vector of pointers to function???
+[] Multiple AIs; switch case instruction with AI IDs
+
+---GUI---
+[] start button
+[] place heroes
+[] pick AI => set AI ID
+
+---Game---
+[] end conditions
 
 ---Documentation---
 [] Doxygen
