@@ -32,6 +32,8 @@
 
 ---GUI---
 [] start button
+[] pause button
+[] speed up button
 [] place heroes
 [] pick AI => set AI ID
 

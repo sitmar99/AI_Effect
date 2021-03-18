@@ -14,7 +14,7 @@
 #define debug(x)  std::cerr << "(" << __LINE__ << ") " << #x << " == " << (x) << std::endl
 
 int width = 600;
-int height = 600;
+int height = 650;
 int size = 8;
 int tileSize = width/size;
 
@@ -61,7 +61,18 @@ int main()
             case sf::Event::Closed:
                 window->close();
                 break;
-            
+            case::sf::Event::MouseButtonPressed:
+                switch (event.mouseButton.button == sf::Mouse::Left)
+                {
+                case /* constant-expression */:         //play button
+                    /* code */
+                    break;
+                
+                default:
+                    break;
+                }
+            break;
+
             case sf::Event::KeyPressed:
                 switch (event.key.code)
                 {
@@ -93,6 +104,7 @@ int main()
         {
             ai->play();
         }
+
         //draw heroes & check if dead
         for (auto iHero = heroes.begin(); iHero != heroes.end(); iHero++)
         {
