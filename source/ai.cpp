@@ -9,11 +9,6 @@ void Ai::play()
     }
 }
 
-void Ai::add(Hero *ent)
-{
-    entities.push_back(ent);
-}
-
 Ai::Ai(std::vector<Hero*> *heroesPtr, std::vector<Projectile*> *projectilesPtr)
 {
     heroes = heroesPtr;
