@@ -5,6 +5,7 @@
 #include <vector>
 #include <math.h>
 #include "entity.h"
+#include "button.h"
 #include "ai.h"
 #include "hero.h"
 #include "archer.h"
@@ -23,9 +24,22 @@ sf::Vector2i convertToGrid(sf::Vector2f pos)
     return sf::Vector2i(pos.x/tileSize, pos.y/tileSize);
 }
 
+int buttonPressed(std::vector<Button*>* buttons, sf::Vector2i mousePos)
+{
+    for(Button* button : *buttons)  //segmantation fault!!!
+    {
+        debug((*buttons).size());
+        if (button->getSprite()->getGlobalBounds().contains(sf::Vector2f(mousePos)))
+        {
+            return button->getID();
+        }
+    }
+}
+
 int main()
     {
     //zmienne
+    std::vector<Button*> buttons;
     std::vector<Hero*> heroes;
     std::vector<Projectile*> projectiles;
     std::vector<Ai*> ais;
@@ -43,6 +57,9 @@ int main()
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(width, height), "AI Effect", sf::Style::Default);
     window->setFramerateLimit(60);
 
+    //dodanie guzikow
+    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(25, 625)));
+    
     //TESTOWANIE
     // heroes.push_back(new Mage("sprites/mage.png", sf::Vector2f(156,330)));
     heroes.push_back(new Knight("sprites/knight.png", sf::Vector2f(156,330), 0));
@@ -62,16 +79,24 @@ int main()
                 window->close();
                 break;
             case::sf::Event::MouseButtonPressed:
-                switch (event.mouseButton.button == sf::Mouse::Left)
+                switch (event.mouseButton.button)
                 {
-                case /* constant-expression */:         //play button
-                    /* code */
+                case sf::Mouse::Button::Left:
+                    switch (buttonPressed(&buttons, sf::Mouse::getPosition()))
+                    {
+                    case 0:
+                        debug("here!");
+                        break;
+                    
+                    default:
+                        break;
+                    }
                     break;
                 
                 default:
                     break;
                 }
-            break;
+                break;
 
             case sf::Event::KeyPressed:
                 switch (event.key.code)
@@ -130,6 +155,11 @@ int main()
             }
             else
                 window->draw(*(*iPro)->getSprite());
+        }
+
+        for (auto button : buttons)
+        {
+            window->draw(*button->getSprite());
         }
 
         window->display();
