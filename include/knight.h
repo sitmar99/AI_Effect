@@ -13,6 +13,7 @@ public:
     void attack(Hero* target, std::vector<Projectile*> *projectiles);
     void specialAttack(Hero* target);
 
+    Knight(sf::Vector2f pos, int party);
     Knight(std::string pathToSprite, sf::Vector2f pos, int party);
     ~Knight() {};
 };

@@ -38,6 +38,16 @@ void Archer::specialAttack(Hero* target)
     }
 }
 
+Archer::Archer(sf::Vector2f pos, int party): Hero("sprites/archer.png", pos, party)
+{
+    setType(0);
+    setRange(300);
+    setDmg(2);
+    setHp(1);
+    setRateOfAttack(3);
+    setRateOfSpecialAttack(10);
+    setSpecialAttackDuration(5);
+}
 
 Archer::Archer(std::string pathToSprite, sf::Vector2f pos, int party): Hero(pathToSprite, pos, party)
 {

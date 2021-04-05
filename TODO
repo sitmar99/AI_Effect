@@ -6,7 +6,8 @@
 [X] Draw projectiles over targets
 
 ---Entities---
-[] getPosition() as getSprite()->getPosition()
+[X] getPosition() as getSprite()->getPosition()
+[] saving sprites?
 
 ---Heroes---
 [X] delay between everything (attack, specialAttack)
@@ -32,21 +33,22 @@
 ---AI---
 [-] Multiple AIs; vector of pointers to function???
 [X] Multiple AIs; switch case instruction with AI IDs
-[] change vecEntity to vecHeroes
 
 ---GUI---
 [X] start button
 [X] pause button
+[] reset button
 [] speed up button
-[] heroes clipboard
-[] drag and drop heroes
-[] pick AI => set AI ID
+[X] heroes clipboard
+[X] drag and drop heroes
+[X] pick AI => set AI ID
 
 ---AI creator---
 [] remove AIs
 
 ---Game---
 [X] end conditions
+[] select AI only at begining
 [] menu
 
 ---Documentation---

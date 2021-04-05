@@ -37,6 +37,17 @@ void Knight::specialAttack(Hero* target)
     }
 }
 
+Knight::Knight(sf::Vector2f pos, int party): Hero("sprites/knight.png", pos, party)
+{
+    setType(1);
+    setRange(10);
+    setDmg(2);
+    setHp(2);
+    setRateOfAttack(2);
+    setRateOfSpecialAttack(10);
+    setSpecialAttackDuration(5);
+}
+
 Knight::Knight(std::string pathToSprite, sf::Vector2f pos, int party): Hero(pathToSprite, pos, party)
 {
     setType(1);

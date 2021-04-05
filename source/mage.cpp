@@ -30,6 +30,16 @@ void Mage::specialAttack(Hero* target )
     }
 }
 
+Mage::Mage(sf::Vector2f pos, int party): Hero("sprites/mage.png", pos, party)
+{
+    setType(2);
+    setRange(12);
+    setDmg(2);
+    setHp(2);
+    setRateOfAttack(3);
+    setRateOfSpecialAttack(10);
+}
+
 Mage::Mage(std::string pathToSprite, sf::Vector2f pos, int party): Hero(pathToSprite, pos, party)
 {
     setType(2);

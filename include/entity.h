@@ -35,6 +35,7 @@ public:
     void decHpBy(int iSub) { hp -= iSub; }
 
     sf::Vector2i getIPos() { return iPos; }
+    sf::Vector2f getFPos() { return sprite.getPosition(); }
     void setDestination(sf::Vector2f newDest) { destination = newDest; }
     sf::Vector2f getDestination() { return destination; }
     void setTarget(Entity *newTarget) { target = newTarget; }

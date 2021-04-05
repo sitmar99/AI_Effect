@@ -18,7 +18,6 @@
 int width = 600;
 int height = 650;
 int size = 8;
-int tileSize = width/size;
 
 void selectAI(std::vector<Hero*>* heroes, Hero* hero)
 {
@@ -102,11 +101,6 @@ void selectAI(std::vector<Hero*>* heroes, Hero* hero)
     }
 }
 
-sf::Vector2i convertToGrid(sf::Vector2f pos)
-{
-    return sf::Vector2i(pos.x/tileSize, pos.y/tileSize);
-}
-
 int heroesAliveInParty(std::vector<Hero*>* heroes, int party)
 {
     int alive = 0;
@@ -135,6 +129,7 @@ int main()
     //zmienne
     bool bPause = true;
     int iGameOver = 0;
+    Hero* hDraged = nullptr;
 
     sf::Vector2f mysz;
     std::vector<Button*> buttons;
@@ -156,13 +151,16 @@ int main()
     window->setFramerateLimit(60);
 
     //dodanie guzikow
-    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(2, 602), 1));
-    buttons.push_back(new Button("sprites/pause.png", sf::Vector2f(52, 602), 2));
+    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(2, 602), 0));
+    buttons.push_back(new Button("sprites/pause.png", sf::Vector2f(52, 602), 1));
+    buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(102, 602), 2));
+    buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(152, 602), 3));
+    buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(202, 602), 4));
     
     //TESTOWANIE
-    // heroes.push_back(new Mage("sprites/mage.png", sf::Vector2f(156,330)));
-    heroes.push_back(new Knight("sprites/knight.png", sf::Vector2f(156,330), 0));
-    heroes.push_back(new Archer("sprites/archer.png", sf::Vector2f(273,387), 1));
+    // heroes.push_back(new Knight("sprites/knight.png", sf::Vector2f(100.5, 100.5), 0));
+    heroes.push_back(new Knight("sprites/knight.png", sf::Vector2f(154, 330), 0));
+    heroes.push_back(new Archer("sprites/archer.png", sf::Vector2f(274, 387), 1));
 
     ais.push_back(new Ai(&heroes, &projectiles));
     ais[0]->add(heroes[1]);
@@ -177,17 +175,31 @@ int main()
             case sf::Event::Closed:
                 window->close();
                 break;
+
             case::sf::Event::MouseButtonPressed:
                 switch (event.mouseButton.button)
                 {
                 case sf::Mouse::Button::Left:
                     switch (buttonPressed(&buttons, sf::Vector2f(sf::Mouse::getPosition(*window))))
                     {
-                    case 1:
+                    case 0:
                         bPause = false;
                         break;
-                    case 2:
+                    case 1:
                         bPause = true;
+                        break;
+                    case 2:
+                        hDraged = new Knight(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
+                        heroes.push_back(hDraged);
+                        break;
+                    case 3:
+                        hDraged = new Archer(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
+                        heroes.push_back(hDraged);
+                        break;
+                    case 4:
+                        hDraged = new Mage(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
+                        heroes.push_back(hDraged);
+                        break;
                     default:
                         break;
                     }
@@ -201,6 +213,24 @@ int main()
                     break;
                 default:
                     break;
+                }
+                break;
+
+            case sf::Event::MouseMoved:
+                if (hDraged != 0)
+                {
+                    hDraged->getSprite()->setPosition(sf::Vector2f(sf::Mouse::getPosition(*window)));
+                } 
+                break;
+
+            case sf::Event::MouseButtonReleased:
+                if (hDraged != 0)
+                {
+                    sf::Vector2f pos = sf::Vector2f(sf::Mouse::getPosition(*window));
+                    pos.x = trunc((pos.x - 75) / 57) * 57 + 100.5;
+                    pos.y = trunc((pos.y - 75) / 57) * 57 + 100.5;
+                    hDraged->getSprite()->setPosition(pos);
+                    hDraged = nullptr;
                 }
                 break;
 
