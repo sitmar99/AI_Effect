@@ -6,6 +6,7 @@ void Ai::play()
     {
         switch (ent->getAiID())
         {
+        //Name: example
         case 1:
             if (ent->nearestEnemy(heroes))
                 ent->setDestination(ent->nearestEnemy(heroes)->getSprite()->getPosition()); 
@@ -13,6 +14,13 @@ void Ai::play()
                 ent->attack(ent->enemyWithLowestHP(heroes), projectiles);
             break;
         
+        //Name: Lorem
+        case 2:
+            break;
+
+        //Name: Ipsum
+        case 3:
+            break;
         default:
             break;
         }

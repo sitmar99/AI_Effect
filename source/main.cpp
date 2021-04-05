@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
 
+#include <fstream>
 #include <vector>
 #include <math.h>
 #include "entity.h"
@@ -18,6 +19,66 @@ int width = 600;
 int height = 650;
 int size = 8;
 int tileSize = width/size;
+
+void selectAI(std::vector<Hero*>* heroes, Hero* hero)
+{
+    int size = 16;
+    sf::Font font;
+    sf::Text text;
+    if (!font.loadFromFile("fonts/Timeless.ttf"))
+    {
+        printf("Error while loading font!\n");
+    }
+    text.setFont(font);
+    text.setPosition(0,0);
+    text.setFillColor(sf::Color::Black);
+
+    std::vector<std::string> vecAiNames;
+    std::fstream ais;
+    std::string line;
+    size_t pos;
+    ais.open("source/ai.cpp");
+    while (getline(ais, line))
+    {
+        pos = line.find("Name: ");
+        if (pos != std::string::npos)
+        {
+            vecAiNames.push_back(line.substr(pos + 6));
+        }
+    }
+    ais.close();
+
+    text.setString(vecAiNames[0]);
+
+    sf::RectangleShape selection(sf::Vector2f(50, 1.3 * size));
+    selection.setFillColor(sf::Color::Red);
+
+    sf::RenderWindow AiWindow(sf::VideoMode(50, 100), "select AI", sf::Style::None);
+    AiWindow.setPosition(sf::Mouse::getPosition());
+    
+    while(AiWindow.isOpen())
+    {
+        text.setCharacterSize(size);
+        selection.setSize(sf::Vector2f(100, 1.3 * size));
+
+        sf::Event event;
+        while(AiWindow.pollEvent(event))
+        {
+            if(!AiWindow.hasFocus())
+                AiWindow.close();
+
+            if(event.type == sf::Event::MouseWheelScrolled)
+            {
+                size += event.mouseWheelScroll.delta;
+            }
+        }
+
+        AiWindow.clear(sf::Color::White);
+        AiWindow.draw(selection);
+        AiWindow.draw(text);
+        AiWindow.display();
+    }
+}
 
 sf::Vector2i convertToGrid(sf::Vector2f pos)
 {
@@ -109,7 +170,13 @@ int main()
                         break;
                     }
                     break;
-                
+                case sf::Mouse::Button::Right:
+                    for (auto hero : heroes)
+                    {
+                        if (hero->getSprite()->getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(*window))))
+                            selectAI(&heroes, hero);
+                    }
+                    break;
                 default:
                     break;
                 }

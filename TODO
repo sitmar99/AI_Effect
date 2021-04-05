@@ -38,11 +38,13 @@
 [X] start button
 [X] pause button
 [] speed up button
-[] place heroes
+[] heroes clipboard
+[] drag and drop heroes
 [] pick AI => set AI ID
 
 ---Game---
-[] end conditions
+[X] end conditions
+[] menu
 
 ---Documentation---
 [] Doxygen
