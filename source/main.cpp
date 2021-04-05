@@ -24,6 +24,18 @@ sf::Vector2i convertToGrid(sf::Vector2f pos)
     return sf::Vector2i(pos.x/tileSize, pos.y/tileSize);
 }
 
+int heroesAliveInParty(std::vector<Hero*>* heroes, int party)
+{
+    int alive = 0;
+
+    for (auto hero : (*heroes))
+    {
+        if (hero->getParty() == party)
+            alive++;
+    }
+    return alive;
+}
+
 int buttonPressed(std::vector<Button*>* buttons, sf::Vector2f mousePos)
 {
     for (auto button : (*buttons))
@@ -38,7 +50,8 @@ int buttonPressed(std::vector<Button*>* buttons, sf::Vector2f mousePos)
 int main()
     {
     //zmienne
-    bool pause = false;
+    bool bPause = true;
+    int iGameOver = 0;
 
     sf::Vector2f mysz;
     std::vector<Button*> buttons;
@@ -88,10 +101,10 @@ int main()
                     switch (buttonPressed(&buttons, sf::Vector2f(sf::Mouse::getPosition(*window))))
                     {
                     case 1:
-                        pause = false;
+                        bPause = false;
                         break;
                     case 2:
-                        pause = true;
+                        bPause = true;
                     default:
                         break;
                     }
@@ -107,6 +120,9 @@ int main()
                 {
                 case sf::Keyboard::Escape:
                     window->close();
+                    break;
+                case sf::Keyboard::Space:
+                    bPause = !bPause;
                     break;
                 case sf::Keyboard::A:   //hard coded move up
                     heroes[1]->setDestination(sf::Vector2f(heroes[1]->getSprite()->getPosition().x, heroes[1]->getSprite()->getPosition().y-58));
@@ -128,13 +144,25 @@ int main()
         window->clear(sf::Color::Black);
         window->draw(*sBackground);
         
-        //control heroes
-        if (!pause)
+        if(!heroesAliveInParty(&heroes, 0))
         {
-            for (auto ai : ais)
-            {
-                ai->play();
-            }
+            iGameOver = 2;
+            std::cout << "Winner is Player 2!\n";
+            break;
+        }
+        if(!heroesAliveInParty(&heroes, 1))
+        {
+            iGameOver = 1;
+            std::cout << "Winner is Player 1!\n";
+            break;
+        }
+
+        if (!bPause)
+        {
+            // for (auto ai : ais)
+            // {
+            //     ai->play();
+            // }
 
             //check if hero dead
             for (auto iHero = heroes.begin(); iHero != heroes.end(); iHero++)
@@ -164,7 +192,7 @@ int main()
             }
         }
 
-        if (pause)
+        if (bPause)
         {
             for (auto hero : heroes)
             {

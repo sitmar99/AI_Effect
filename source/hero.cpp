@@ -59,12 +59,12 @@ Hero* Hero::allyWithLowestHP(std::vector<Hero*> *heroes)
 
 Hero* Hero::enemyWithLowestHP(std::vector<Hero*> *heroes)
 {
-    int lowestHP = 10;
+    int lowestHP = 100;
     Hero* lowestEnemy = nullptr;
 
     for (auto iHero : (*heroes))
     {
-        if (party == iHero->getParty() && iHero->getHp() < lowestHP)
+        if (party != iHero->getParty() && iHero->getHp() < lowestHP)
         {
             lowestHP = iHero->getHp();
             lowestEnemy = iHero;

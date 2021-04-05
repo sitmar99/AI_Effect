@@ -48,4 +48,6 @@ Archer::Archer(std::string pathToSprite, sf::Vector2f pos, int party): Hero(path
     setRateOfAttack(3);
     setRateOfSpecialAttack(10);
     setSpecialAttackDuration(5);
+
+    setAiID(1);
 }

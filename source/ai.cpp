@@ -9,6 +9,8 @@ void Ai::play()
         case 1:
             if (ent->nearestEnemy(heroes))
                 ent->setDestination(ent->nearestEnemy(heroes)->getSprite()->getPosition()); 
+            if (ent->enemyInRange(heroes))
+                ent->attack(ent->enemyWithLowestHP(heroes), projectiles);
             break;
         
         default:
