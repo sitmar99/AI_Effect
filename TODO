@@ -19,6 +19,7 @@
 [X] allyInRange()
 [X] enemyInRange()
 [X] specialAttack(Hero* target)
+[] fix special Attack
 [] middleOfAllies()
 [] middleOfEnemies()
 [] midleOfBoard()
@@ -37,7 +38,7 @@
 ---GUI---
 [X] start button
 [X] pause button
-[] reset button
+[X] reset button
 [] speed up button
 [X] heroes clipboard
 [X] drag and drop heroes
@@ -49,6 +50,7 @@
 
 ---Game---
 [X] end conditions
+[] end screen
 [] select AI only at begining
 [] menu
 

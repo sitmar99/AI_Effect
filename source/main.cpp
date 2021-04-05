@@ -294,8 +294,12 @@ int main()
                 break;
             }
             if(!heroesAliveInParty(&heroes, 1))
+            {
+                iGameOver = 1;
+                std::cout << "Winner is Player 1!\n";
+                break;
+            }
 
-            debug("flaming!");
             artificial.play();
 
             //check if hero dead

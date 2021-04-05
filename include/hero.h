@@ -40,7 +40,7 @@ public:
     time_t getTimeSpecialAttacked() { return timeSpecialAttacked; }
     void setTimeSpecialAttacked(time_t newTimeSpecialAttacked) { timeSpecialAttacked = newTimeSpecialAttacked; }
     bool getSpecialAttacked() { return specialAttacked; }
-    bool setSpecialAttacked(bool newSpecialAttacked) { specialAttacked = newSpecialAttacked; }
+    void setSpecialAttacked(bool newSpecialAttacked) { specialAttacked = newSpecialAttacked; }
     int getSpecialAttackDuration() { return specialAttackDuration; }
     void setSpecialAttackDuration(int newSpecialAttackDuration) { specialAttackDuration = newSpecialAttackDuration; }
 
