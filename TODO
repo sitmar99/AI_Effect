@@ -32,7 +32,6 @@
 [] nearestSpeed()
 
 ---AI---
-[-] Multiple AIs; vector of pointers to function???
 [X] Multiple AIs; switch case instruction with AI IDs
 
 ---GUI---
@@ -43,6 +42,7 @@
 [X] heroes clipboard
 [X] drag and drop heroes
 [X] pick AI => set AI ID
+[] remove heroes
 
 ---AI creator---
 [] everything
