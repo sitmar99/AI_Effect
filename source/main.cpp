@@ -22,7 +22,10 @@ int tileSize = width/size;
 
 void selectAI(std::vector<Hero*>* heroes, Hero* hero)
 {
+    int iID = 0;
     int size = 16;
+    float fSelectionScale = 1.2;
+
     sf::Font font;
     sf::Text text;
     if (!font.loadFromFile("fonts/Timeless.ttf"))
@@ -30,7 +33,6 @@ void selectAI(std::vector<Hero*>* heroes, Hero* hero)
         printf("Error while loading font!\n");
     }
     text.setFont(font);
-    text.setPosition(0,0);
     text.setFillColor(sf::Color::Black);
 
     std::vector<std::string> vecAiNames;
@@ -48,18 +50,23 @@ void selectAI(std::vector<Hero*>* heroes, Hero* hero)
     }
     ais.close();
 
-    text.setString(vecAiNames[0]);
+    sf::RectangleShape selection(sf::Vector2f(50, fSelectionScale * size));
+    selection.setFillColor(sf::Color(128, 128, 128));
+    sf::RectangleShape selected(sf::Vector2f(50, fSelectionScale * size));
+    selected.setFillColor(sf::Color(128, 128, 128));
 
-    sf::RectangleShape selection(sf::Vector2f(50, 1.3 * size));
-    selection.setFillColor(sf::Color::Red);
-
-    sf::RenderWindow AiWindow(sf::VideoMode(50, 100), "select AI", sf::Style::None);
+    sf::RenderWindow AiWindow(sf::VideoMode(75, 100), "select AI", sf::Style::None);
     AiWindow.setPosition(sf::Mouse::getPosition());
     
     while(AiWindow.isOpen())
     {
+        iID = sf::Mouse::getPosition(AiWindow).y / size;
+
         text.setCharacterSize(size);
-        selection.setSize(sf::Vector2f(100, 1.3 * size));
+        selection.setSize(sf::Vector2f(75, fSelectionScale * size));
+        selection.setPosition(sf::Vector2f(0, iID * size));
+        selected.setSize(sf::Vector2f(75, fSelectionScale * size));
+        selected.setPosition(sf::Vector2f(0, hero->getAiID() * size));
 
         sf::Event event;
         while(AiWindow.pollEvent(event))
@@ -71,11 +78,26 @@ void selectAI(std::vector<Hero*>* heroes, Hero* hero)
             {
                 size += event.mouseWheelScroll.delta;
             }
+
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left)
+            {
+                hero->setAiID(iID);
+                AiWindow.close();
+                return;
+            }
         }
 
         AiWindow.clear(sf::Color::White);
         AiWindow.draw(selection);
-        AiWindow.draw(text);
+        AiWindow.draw(selected);
+        
+        for (int iter = 0; iter < vecAiNames.size(); iter++)
+        {
+            text.setString(vecAiNames[iter]);
+            text.setPosition(0, size * iter);
+            AiWindow.draw(text);
+        }
+
         AiWindow.display();
     }
 }

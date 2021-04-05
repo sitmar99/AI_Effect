@@ -100,4 +100,5 @@ Hero::Hero(std::string pathToSprite, sf::Vector2f pos, int party): Entity(pathTo
     timeAttacked = 0;
     timeSpecialAttacked = 0;
     specialAttacked = false;
+    aiID = 0;
 }

@@ -42,6 +42,9 @@
 [] drag and drop heroes
 [] pick AI => set AI ID
 
+---AI creator---
+[] remove AIs
+
 ---Game---
 [X] end conditions
 [] menu

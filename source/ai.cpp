@@ -7,7 +7,7 @@ void Ai::play()
         switch (ent->getAiID())
         {
         //Name: example
-        case 1:
+        case 0:
             if (ent->nearestEnemy(heroes))
                 ent->setDestination(ent->nearestEnemy(heroes)->getSprite()->getPosition()); 
             if (ent->enemyInRange(heroes))
@@ -15,11 +15,11 @@ void Ai::play()
             break;
         
         //Name: Lorem
-        case 2:
+        case 1:
             break;
 
         //Name: Ipsum
-        case 3:
+        case 2:
             break;
         default:
             break;
