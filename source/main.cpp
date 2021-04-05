@@ -60,7 +60,8 @@ int main()
     window->setFramerateLimit(60);
 
     //dodanie guzikow
-    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(2, 602)));
+    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(2, 602), 1));
+    buttons.push_back(new Button("sprites/pause.png", sf::Vector2f(52, 602), 2));
     
     //TESTOWANIE
     // heroes.push_back(new Mage("sprites/mage.png", sf::Vector2f(156,330)));
@@ -86,11 +87,11 @@ int main()
                 case sf::Mouse::Button::Left:
                     switch (buttonPressed(&buttons, sf::Vector2f(sf::Mouse::getPosition(*window))))
                     {
-                    case 1:         //PLAY
-                        pause = !pause;
+                    case 1:
+                        pause = false;
                         break;
-                    case 2:         //PAUSE
-
+                    case 2:
+                        pause = true;
                     default:
                         break;
                     }

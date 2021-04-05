@@ -1,6 +1,6 @@
 #include "button.h"
 
-Button::Button(std::string pathToSprite, sf::Vector2f pos)
+Button::Button(std::string pathToSprite, sf::Vector2f pos, int ID)
 {
     texture.loadFromFile(pathToSprite);
     sprite.setTexture(texture);
@@ -9,5 +9,5 @@ Button::Button(std::string pathToSprite, sf::Vector2f pos)
 
     sprite.setPosition(pos);
 
-    ID = 1;
+    this->ID = ID;
 }

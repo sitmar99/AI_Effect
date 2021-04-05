@@ -19,7 +19,7 @@ public:
     int getID() { return ID; }
 
     Button() {};
-    Button(std::string pathToSprite, sf::Vector2f pos);
+    Button(std::string pathToSprite, sf::Vector2f pos, int ID);
     ~Button();
 };
 
