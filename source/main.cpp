@@ -24,21 +24,23 @@ sf::Vector2i convertToGrid(sf::Vector2f pos)
     return sf::Vector2i(pos.x/tileSize, pos.y/tileSize);
 }
 
-int buttonPressed(std::vector<Button*>* buttons, sf::Vector2i mousePos)
+int buttonPressed(std::vector<Button*>* buttons, sf::Vector2f mousePos)
 {
-    for(Button* button : *buttons)  //segmantation fault!!!
+    for (auto button : (*buttons))
     {
-        debug((*buttons).size());
-        if (button->getSprite()->getGlobalBounds().contains(sf::Vector2f(mousePos)))
-        {
+        if(button->getSprite()->getGlobalBounds().contains(mousePos))
             return button->getID();
-        }
+
     }
+    return 0;
 }
 
 int main()
     {
     //zmienne
+    bool pause = false;
+
+    sf::Vector2f mysz;
     std::vector<Button*> buttons;
     std::vector<Hero*> heroes;
     std::vector<Projectile*> projectiles;
@@ -58,7 +60,7 @@ int main()
     window->setFramerateLimit(60);
 
     //dodanie guzikow
-    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(25, 625)));
+    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(2, 602)));
     
     //TESTOWANIE
     // heroes.push_back(new Mage("sprites/mage.png", sf::Vector2f(156,330)));
@@ -82,12 +84,13 @@ int main()
                 switch (event.mouseButton.button)
                 {
                 case sf::Mouse::Button::Left:
-                    switch (buttonPressed(&buttons, sf::Mouse::getPosition()))
+                    switch (buttonPressed(&buttons, sf::Vector2f(sf::Mouse::getPosition(*window))))
                     {
-                    case 0:
-                        debug("here!");
+                    case 1:         //PLAY
+                        pause = !pause;
                         break;
-                    
+                    case 2:         //PAUSE
+
                     default:
                         break;
                     }
@@ -125,38 +128,52 @@ int main()
         window->draw(*sBackground);
         
         //control heroes
-        for (auto ai : ais)
+        if (!pause)
         {
-            ai->play();
-        }
-
-        //draw heroes & check if dead
-        for (auto iHero = heroes.begin(); iHero != heroes.end(); iHero++)
-        {
-            if (!(*iHero)->update())
+            for (auto ai : ais)
             {
-                delete *iHero;
-                heroes.erase(iHero--);
+                ai->play();
             }
-            else
-                window->draw(*(*iHero)->getSprite());
 
-        }
-        
-        //draw projectiles & check if hit
-        for (auto iPro=projectiles.begin(); iPro!=projectiles.end(); iPro++)
-        {
-            (*iPro)->update();
-            if ((*iPro)->getSprite()->getPosition() == (*iPro)->getTarget()->getSprite()->getPosition())
+            //check if hero dead
+            for (auto iHero = heroes.begin(); iHero != heroes.end(); iHero++)
             {
-                (*iPro)->getTarget()->decHpBy((*iPro)->getDmg());
-                delete *iPro;
-                projectiles.erase(iPro--);
+                if (!(*iHero)->update())
+                {
+                    delete *iHero;
+                    heroes.erase(iHero--);
+                }
+                else
+                    window->draw(*(*iHero)->getSprite());
+                
             }
-            else
-                window->draw(*(*iPro)->getSprite());
+            
+            //draw projectiles & check if hit
+            for (auto iPro=projectiles.begin(); iPro!=projectiles.end(); iPro++)
+            {
+                (*iPro)->update();
+                if ((*iPro)->getSprite()->getPosition() == (*iPro)->getTarget()->getSprite()->getPosition())
+                {
+                    (*iPro)->getTarget()->decHpBy((*iPro)->getDmg());
+                    delete *iPro;
+                    projectiles.erase(iPro--);
+                }
+                else
+                    window->draw(*(*iPro)->getSprite());
+            }
         }
 
+        if (pause)
+        {
+            for (auto hero : heroes)
+            {
+                window->draw(*hero->getSprite());
+            }
+            for (auto proj : projectiles)
+        {
+            window->draw(*proj->getSprite());
+        }
+        }
         for (auto button : buttons)
         {
             window->draw(*button->getSprite());
