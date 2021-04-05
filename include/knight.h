@@ -15,6 +15,7 @@ public:
     Hero* copy();
 
     Knight(sf::Vector2f pos, int party);
+    Knight(sf::Vector2f pos, int party, int AiID);
     Knight(std::string pathToSprite, sf::Vector2f pos, int party);
     ~Knight() {};
 };

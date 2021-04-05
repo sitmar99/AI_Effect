@@ -94,6 +94,16 @@ bool Hero::enemyInRange(std::vector<Hero*> *heroes)
     return false;
 }
 
+Hero::Hero(std::string pathToSprite, sf::Vector2f pos, int party, int AiID): Entity(pathToSprite, pos)
+{
+    this->party = party;
+    timeAttacked = 0;
+    timeSpecialAttacked = 0;
+    specialAttacked = false;
+    this->aiID = AiID;
+}
+
+
 Hero::Hero(std::string pathToSprite, sf::Vector2f pos, int party): Entity(pathToSprite, pos)
 {
     this->party = party;

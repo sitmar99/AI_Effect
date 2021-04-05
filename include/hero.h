@@ -58,6 +58,7 @@ public:
     bool enemyInRange(std::vector<Hero*> *heroes);
 
     Hero(std::string pathToSprite, sf::Vector2f pos, int party);
+    Hero(std::string pathToSprite, sf::Vector2f pos, int party, int AiID);
     ~Hero() {};
 };
 

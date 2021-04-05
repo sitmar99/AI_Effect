@@ -32,10 +32,20 @@ void Mage::specialAttack(Hero* target )
 
 Hero* Mage::copy()
 {
-    return new Mage(getFPos(), getParty());
+    return new Mage(getFPos(), getParty(), getAiID());
 }
 
 Mage::Mage(sf::Vector2f pos, int party): Hero("sprites/mage.png", pos, party)
+{
+    setType(2);
+    setRange(12);
+    setDmg(2);
+    setHp(2);
+    setRateOfAttack(3);
+    setRateOfSpecialAttack(10);
+}
+
+Mage::Mage(sf::Vector2f pos, int party, int AiID): Hero("sprites/mage.png", pos, party, AiID)
 {
     setType(2);
     setRange(12);

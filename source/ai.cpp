@@ -20,12 +20,13 @@ void Ai::play()
         
         //Name: Knight tank
         case 2:
-            hero->specialAttack(hero);
             hero->attack(hero->nearestEnemy(heroes), projectiles);
+            hero->specialAttack(hero);
             break;
 
         //Name: Knight dps
         case 3:
+            std::cout << "here\n";
             hero->attack(hero->nearestEnemy(heroes), projectiles);
             break;
 

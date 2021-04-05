@@ -40,10 +40,21 @@ void Archer::specialAttack(Hero* target)
 
 Hero* Archer::copy()
 {
-    return new Archer(getFPos(), getParty());
+    return new Archer(getFPos(), getParty(), getAiID());
 }
 
 Archer::Archer(sf::Vector2f pos, int party): Hero("sprites/archer.png", pos, party)
+{
+    setType(0);
+    setRange(200);
+    setDmg(2);
+    setHp(1);
+    setRateOfAttack(3);
+    setRateOfSpecialAttack(10);
+    setSpecialAttackDuration(5);
+}
+
+Archer::Archer(sf::Vector2f pos, int party, int AiID): Hero("sprites/archer.png", pos, party, AiID)
 {
     setType(0);
     setRange(200);

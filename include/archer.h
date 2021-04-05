@@ -15,6 +15,7 @@ public:
     Hero* copy();
 
     Archer(sf::Vector2f pos, int party);
+    Archer(sf::Vector2f pos, int party, int AiID);
     Archer(std::string pathToSprite, sf::Vector2f pos, int party);
     ~Archer() {};
 };

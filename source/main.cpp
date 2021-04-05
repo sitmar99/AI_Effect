@@ -181,6 +181,10 @@ int main()
                     {
                     case 0:
                         heroes = heroesCopy;
+                        heroesCopy.clear();
+                        for (auto proj : projectiles)
+                            delete proj;
+                        projectiles.clear();
                         bPause = true;
                         break;
                     case 1:
@@ -291,6 +295,7 @@ int main()
             }
             if(!heroesAliveInParty(&heroes, 1))
 
+            debug("flaming!");
             artificial.play();
 
             //check if hero dead

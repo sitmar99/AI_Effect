@@ -39,10 +39,21 @@ void Knight::specialAttack(Hero* target)
 
 Hero* Knight::copy()
 {
-    return new Knight(getFPos(), getParty());
+    return new Knight(getFPos(), getParty(), getAiID());
 }
 
 Knight::Knight(sf::Vector2f pos, int party): Hero("sprites/knight.png", pos, party)
+{
+    setType(1);
+    setRange(10);
+    setDmg(2);
+    setHp(2);
+    setRateOfAttack(2);
+    setRateOfSpecialAttack(10);
+    setSpecialAttackDuration(5);
+}
+
+Knight::Knight(sf::Vector2f pos, int party, int AiID): Hero("sprites/knight.png", pos, party, AiID)
 {
     setType(1);
     setRange(10);

@@ -15,6 +15,7 @@ public:
     Hero* copy();
 
     Mage(sf::Vector2f pos, int party);
+    Mage(sf::Vector2f pos, int party, int AiID);
     Mage(std::string pathToSprite, sf::Vector2f pos, int party);
     ~Mage() {};
 };
