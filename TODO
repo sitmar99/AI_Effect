@@ -19,7 +19,7 @@
 [X] allyInRange()
 [X] enemyInRange()
 [X] specialAttack(Hero* target)
-[] fix special Attack
+[X] fix special Attack
 [] middleOfAllies()
 [] middleOfEnemies()
 [] midleOfBoard()
@@ -50,7 +50,7 @@
 
 ---Game---
 [X] end conditions
-[] end screen
+[X] end screen
 [] select AI only at begining
 [] menu
 

@@ -101,6 +101,35 @@ void selectAI(std::vector<Hero*>* heroes, Hero* hero)
     }
 }
 
+void endScreen(sf::RenderWindow* window, int winner)
+{
+    sf::RenderWindow endScreen(sf::VideoMode(400,200), "endScreen", sf::Style::None);
+    endScreen.setPosition(sf::Vector2i(window->getPosition() + sf::Vector2i(100,100)));
+    
+    while(endScreen.isOpen())
+    {
+        sf::Font font;
+        sf::Text text;
+        if (!font.loadFromFile("fonts/Timeless.ttf"))
+            printf("Error while loading font!\n");
+        text.setFont(font);
+        text.setCharacterSize(48);
+        text.setPosition(10,10);
+        text.setFillColor(sf::Color::Black);
+        text.setString("GAME OVER!\n Player " + std::to_string(winner) + " wins");
+        sf::Event event;
+        while(endScreen.pollEvent(event))
+        {
+            if(!endScreen.hasFocus())
+                endScreen.close();
+        }
+
+        endScreen.clear(sf::Color::White);
+        endScreen.draw(text);
+        endScreen.display();
+    }
+}
+
 int heroesAliveInParty(std::vector<Hero*>* heroes, int party)
 {
     int alive = 0;
@@ -284,21 +313,20 @@ int main()
         window->clear(sf::Color::Black);
         window->draw(*sBackground);
         
+        if(!bPause && !heroesAliveInParty(&heroes, 0))
+        {
+            bPause = true;
+            endScreen(window, 2);
+        }
+
+        if(!bPause && !heroesAliveInParty(&heroes, 1))
+        {
+            bPause = true;
+            endScreen(window, 1);
+        }
 
         if (!bPause)
         {
-            if(!heroesAliveInParty(&heroes, 0))
-            {
-                iGameOver = 2;
-                std::cout << "Winner is Player 2!\n";
-                break;
-            }
-            if(!heroesAliveInParty(&heroes, 1))
-            {
-                iGameOver = 1;
-                std::cout << "Winner is Player 1!\n";
-                break;
-            }
 
             artificial.play();
 
