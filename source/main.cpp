@@ -135,7 +135,7 @@ int main()
     std::vector<Button*> buttons;
     std::vector<Hero*> heroes;
     std::vector<Projectile*> projectiles;
-    std::vector<Ai*> ais;
+    Ai artificial(&heroes, &projectiles);
 
     //Wczytywanie tła
     sf::Texture *tBackground = new sf::Texture;
@@ -156,14 +156,14 @@ int main()
     buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(102, 602), 2));
     buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(152, 602), 3));
     buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(202, 602), 4));
+    buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(252, 602), 5));
+    buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(302, 602), 6));
+    buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(352, 602), 7));
     
     //TESTOWANIE
     // heroes.push_back(new Knight("sprites/knight.png", sf::Vector2f(100.5, 100.5), 0));
-    heroes.push_back(new Knight("sprites/knight.png", sf::Vector2f(154, 330), 0));
-    heroes.push_back(new Archer("sprites/archer.png", sf::Vector2f(274, 387), 1));
-
-    ais.push_back(new Ai(&heroes, &projectiles));
-    ais[0]->add(heroes[1]);
+    // heroes.push_back(new Knight("sprites/knight.png", sf::Vector2f(154, 330), 0));
+    // heroes.push_back(new Archer("sprites/archer.png", sf::Vector2f(274, 387), 1));
 
     //glowna petla okna
     while(window->isOpen())
@@ -200,6 +200,18 @@ int main()
                         hDraged = new Mage(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
                         heroes.push_back(hDraged);
                         break;
+                    case 5:
+                        hDraged = new Knight(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
+                        heroes.push_back(hDraged);
+                        break;
+                    case 6:
+                        hDraged = new Archer(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
+                        heroes.push_back(hDraged);
+                        break;
+                    case 7:
+                        hDraged = new Mage(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
+                        heroes.push_back(hDraged);
+                        break;
                     default:
                         break;
                     }
@@ -230,6 +242,7 @@ int main()
                     pos.x = trunc((pos.x - 75) / 57) * 57 + 100.5;
                     pos.y = trunc((pos.y - 75) / 57) * 57 + 100.5;
                     hDraged->getSprite()->setPosition(pos);
+                    artificial.add(hDraged);
                     hDraged = nullptr;
                 }
                 break;
@@ -247,7 +260,7 @@ int main()
                     heroes[1]->setDestination(sf::Vector2f(heroes[1]->getSprite()->getPosition().x, heroes[1]->getSprite()->getPosition().y-58));
                     break;
                 case sf::Keyboard::S:   //hard coded ai testing
-                    ais[0]->play();
+                    artificial.play();
                     break;
                 default:
                     break;
@@ -263,25 +276,23 @@ int main()
         window->clear(sf::Color::Black);
         window->draw(*sBackground);
         
-        if(!heroesAliveInParty(&heroes, 0))
-        {
-            iGameOver = 2;
-            std::cout << "Winner is Player 2!\n";
-            break;
-        }
-        if(!heroesAliveInParty(&heroes, 1))
-        {
-            iGameOver = 1;
-            std::cout << "Winner is Player 1!\n";
-            break;
-        }
 
         if (!bPause)
         {
-            // for (auto ai : ais)
-            // {
-            //     ai->play();
-            // }
+            if(!heroesAliveInParty(&heroes, 0))
+            {
+                iGameOver = 2;
+                std::cout << "Winner is Player 2!\n";
+                break;
+            }
+            if(!heroesAliveInParty(&heroes, 1))
+            {
+                iGameOver = 1;
+                std::cout << "Winner is Player 1!\n";
+                break;
+            }
+
+            artificial.play();
 
             //check if hero dead
             for (auto iHero = heroes.begin(); iHero != heroes.end(); iHero++)

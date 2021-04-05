@@ -28,7 +28,7 @@ void Knight::attack(Hero* target, std::vector<Projectile*> *projectiles)
 
 void Knight::specialAttack(Hero* target)
 {
-    if (!target && time(NULL) - getTimeSpecialAttacked() >= getRateOfSpecialAttack())
+    if ((!target || target == this) && time(NULL) - getTimeSpecialAttacked() >= getRateOfSpecialAttack())
     {
         setDefence(getDefence() + 1);
         setDmg(getDmg() / 2);

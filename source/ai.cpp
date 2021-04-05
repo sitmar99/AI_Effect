@@ -6,20 +6,35 @@ void Ai::play()
     {
         switch (ent->getAiID())
         {
-        //Name: example
+        //Name: Archer sniper
         case 0:
-            if (ent->nearestEnemy(heroes))
-                ent->setDestination(ent->nearestEnemy(heroes)->getSprite()->getPosition()); 
-            if (ent->enemyInRange(heroes))
-                ent->attack(ent->enemyWithLowestHP(heroes), projectiles);
-            break;
-        
-        //Name: Lorem
-        case 1:
+            if (!ent->enemyInRange(heroes))
+                ent->specialAttack(nullptr);
+            ent->attack(ent->enemyWithLowestHP(heroes), projectiles);
             break;
 
-        //Name: Ipsum
+        //Name: Archer dps
+        case 1:
+            ent->attack(ent->nearestEnemy(heroes), projectiles);
+            break;
+        
+        //Name: Knight tank
         case 2:
+            ent->specialAttack(ent);
+            ent->attack(ent->nearestEnemy(heroes), projectiles);
+            break;
+
+        //Name: Knight dps
+        case 3:
+            ent->attack(ent->nearestEnemy(heroes), projectiles);
+            break;
+
+        //Name: Mage
+        case 4:
+            if (ent->allyInRange(heroes))
+                ent->specialAttack(ent->allyWithLowestHP(heroes));
+            if (ent->enemyInRange(heroes))
+                ent->attack(ent->nearestEnemy(heroes), projectiles);
             break;
         default:
             break;
