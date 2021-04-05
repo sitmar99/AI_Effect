@@ -134,6 +134,7 @@ int main()
     sf::Vector2f mysz;
     std::vector<Button*> buttons;
     std::vector<Hero*> heroes;
+    std::vector<Hero*> heroesCopy;
     std::vector<Projectile*> projectiles;
     Ai artificial(&heroes, &projectiles);
 
@@ -151,19 +152,15 @@ int main()
     window->setFramerateLimit(60);
 
     //dodanie guzikow
-    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(2, 602), 0));
-    buttons.push_back(new Button("sprites/pause.png", sf::Vector2f(52, 602), 1));
-    buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(102, 602), 2));
-    buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(152, 602), 3));
-    buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(202, 602), 4));
-    buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(252, 602), 5));
-    buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(302, 602), 6));
-    buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(352, 602), 7));
-    
-    //TESTOWANIE
-    // heroes.push_back(new Knight("sprites/knight.png", sf::Vector2f(100.5, 100.5), 0));
-    // heroes.push_back(new Knight("sprites/knight.png", sf::Vector2f(154, 330), 0));
-    // heroes.push_back(new Archer("sprites/archer.png", sf::Vector2f(274, 387), 1));
+    buttons.push_back(new Button("sprites/reset.png", sf::Vector2f(2, 602), 0));
+    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(52, 602), 1));
+    buttons.push_back(new Button("sprites/pause.png", sf::Vector2f(102, 602), 2));
+    buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(152, 602), 3));
+    buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(202, 602), 4));
+    buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(252, 602), 5));
+    buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(302, 602), 6));
+    buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(352, 602), 7));
+    buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(402, 602), 8));
 
     //glowna petla okna
     while(window->isOpen())
@@ -183,32 +180,40 @@ int main()
                     switch (buttonPressed(&buttons, sf::Vector2f(sf::Mouse::getPosition(*window))))
                     {
                     case 0:
-                        bPause = false;
-                        break;
-                    case 1:
+                        heroes = heroesCopy;
                         bPause = true;
                         break;
+                    case 1:
+                        for (auto hero : heroes)
+                        {
+                            heroesCopy.push_back(hero->copy());
+                        }
+                        bPause = false;
+                        break;
                     case 2:
+                        bPause = true;
+                        break;
+                    case 3:
                         hDraged = new Knight(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
                         heroes.push_back(hDraged);
                         break;
-                    case 3:
+                    case 4:
                         hDraged = new Archer(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
                         heroes.push_back(hDraged);
                         break;
-                    case 4:
+                    case 5:
                         hDraged = new Mage(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
                         heroes.push_back(hDraged);
                         break;
-                    case 5:
+                    case 6:
                         hDraged = new Knight(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
                         heroes.push_back(hDraged);
                         break;
-                    case 6:
+                    case 7:
                         hDraged = new Archer(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
                         heroes.push_back(hDraged);
                         break;
-                    case 7:
+                    case 8:
                         hDraged = new Mage(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
                         heroes.push_back(hDraged);
                         break;
@@ -242,7 +247,6 @@ int main()
                     pos.x = trunc((pos.x - 75) / 57) * 57 + 100.5;
                     pos.y = trunc((pos.y - 75) / 57) * 57 + 100.5;
                     hDraged->getSprite()->setPosition(pos);
-                    artificial.add(hDraged);
                     hDraged = nullptr;
                 }
                 break;
@@ -286,11 +290,6 @@ int main()
                 break;
             }
             if(!heroesAliveInParty(&heroes, 1))
-            {
-                iGameOver = 1;
-                std::cout << "Winner is Player 1!\n";
-                break;
-            }
 
             artificial.play();
 
@@ -344,6 +343,9 @@ int main()
     for (auto ent: heroes)
         delete ent;
     heroes.clear();
+    for (auto ent: heroesCopy)
+        delete ent;
+    heroesCopy.clear();
     for (auto ent: projectiles)
         delete ent;
     projectiles.clear();

@@ -12,6 +12,7 @@ public:
     bool update();
     void attack(Hero* target, std::vector<Projectile*> *projectiles);
     void specialAttack(Hero* target);
+    Hero* copy();
 
     Archer(sf::Vector2f pos, int party);
     Archer(std::string pathToSprite, sf::Vector2f pos, int party);

@@ -37,6 +37,11 @@ void Knight::specialAttack(Hero* target)
     }
 }
 
+Hero* Knight::copy()
+{
+    return new Knight(getFPos(), getParty());
+}
+
 Knight::Knight(sf::Vector2f pos, int party): Hero("sprites/knight.png", pos, party)
 {
     setType(1);

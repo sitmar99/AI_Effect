@@ -15,14 +15,9 @@ class Ai
 private:
     std::vector<Hero*> *heroes;
     std::vector<Projectile*> *projectiles;
-    std::vector<Hero*> entities;
 
 public:
-    std::vector<Hero*> getEntities() { return this->entities; };
-    void addHero(Hero* ent) { this->entities.push_back(ent); };
-
     void play();
-    void add(Hero *ent);
 
     Ai(std::vector<Hero*> *heroesPtr, std::vector<Projectile*> *projectilesPtr);
     ~Ai() {};

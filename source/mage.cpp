@@ -30,6 +30,11 @@ void Mage::specialAttack(Hero* target )
     }
 }
 
+Hero* Mage::copy()
+{
+    return new Mage(getFPos(), getParty());
+}
+
 Mage::Mage(sf::Vector2f pos, int party): Hero("sprites/mage.png", pos, party)
 {
     setType(2);

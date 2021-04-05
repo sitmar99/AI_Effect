@@ -38,6 +38,11 @@ void Archer::specialAttack(Hero* target)
     }
 }
 
+Hero* Archer::copy()
+{
+    return new Archer(getFPos(), getParty());
+}
+
 Archer::Archer(sf::Vector2f pos, int party): Hero("sprites/archer.png", pos, party)
 {
     setType(0);

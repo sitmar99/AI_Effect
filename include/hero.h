@@ -47,6 +47,7 @@ public:
     virtual bool update() = 0;
     virtual void attack(Hero* target, std::vector<Projectile*> *projectiles) = 0;
     virtual void specialAttack(Hero* target) = 0;
+    virtual Hero* copy() = 0;
 
     void moveToTarget() { setDestination(getTarget()->getSprite()->getPosition()); }
     Hero* nearestAlly(std::vector<Hero*> *heroes);
@@ -55,7 +56,6 @@ public:
     Hero* enemyWithLowestHP(std::vector<Hero*> *heroes);
     bool allyInRange(std::vector<Hero*> *heroes);
     bool enemyInRange(std::vector<Hero*> *heroes);
-
 
     Hero(std::string pathToSprite, sf::Vector2f pos, int party);
     ~Hero() {};

@@ -9,7 +9,6 @@ EXE= Game
 
 all:	$(EXE)
 	./$(EXE)
-	rm $(EXE)
 
 $(EXE):	
 	$(CC) -c $(CFLAGS) $(INCLUDE) $(SOURCE)
@@ -19,6 +18,7 @@ $(EXE):
 clean:
 	rm *.o
 	rm obj/*.o
+	rm $(EXE)
 	clear
 
 compile:	$(EXE)
