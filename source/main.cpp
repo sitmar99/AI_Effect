@@ -144,13 +144,22 @@ int heroesAliveInParty(std::vector<Hero*>* heroes, int party)
 
 int buttonPressed(std::vector<Button*>* buttons, sf::Vector2f mousePos)
 {
-    for (auto button : (*buttons))
+    for (auto iButton : (*buttons))
     {
-        if(button->getSprite()->getGlobalBounds().contains(mousePos))
-            return button->getID();
+        if(iButton->getSprite()->getGlobalBounds().contains(mousePos))
+            return iButton->getID();
 
     }
-    return 0;
+    return -1;
+}
+Hero* heroPressed(std::vector<Hero*>* heroes, sf::Vector2f mousePos)
+{
+    for(auto iHero : (*heroes))
+    {
+        if(iHero->getSprite()->getGlobalBounds().contains(mousePos))
+            return iHero;
+    }
+    return nullptr;
 }
 
 int main()
@@ -190,6 +199,7 @@ int main()
     buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(302, 602), 6));
     buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(352, 602), 7));
     buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(402, 602), 8));
+    buttons.push_back(new Button("sprites/trash.png", sf::Vector2f(452, 602), 9));
 
     //glowna petla okna
     while(window->isOpen())
@@ -206,6 +216,8 @@ int main()
                 switch (event.mouseButton.button)
                 {
                 case sf::Mouse::Button::Left:
+                    hDraged = heroPressed(&heroes, sf::Vector2f(sf::Mouse::getPosition(*window)));
+
                     switch (buttonPressed(&buttons, sf::Vector2f(sf::Mouse::getPosition(*window))))
                     {
                     case 0:
@@ -277,9 +289,24 @@ int main()
                 if (hDraged != 0)
                 {
                     sf::Vector2f pos = sf::Vector2f(sf::Mouse::getPosition(*window));
-                    pos.x = trunc((pos.x - 75) / 57) * 57 + 100.5;
-                    pos.y = trunc((pos.y - 75) / 57) * 57 + 100.5;
-                    hDraged->getSprite()->setPosition(pos);
+                    if (buttons.back()->getSprite()->getGlobalBounds().contains(pos))
+                    {
+                        for (auto iHero = heroes.begin(); iHero != heroes.end(); iHero++)
+                        {
+                            if (*iHero == hDraged)
+                            {
+                                delete *iHero;
+                                heroes.erase(iHero--);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        pos.x = trunc((pos.x - 75) / 57) * 57 + 100.5;
+                        pos.y = trunc((pos.y - 75) / 57) * 57 + 100.5;
+                        hDraged->getSprite()->setPosition(pos);
+                    }
                     hDraged = nullptr;
                 }
                 break;
@@ -318,7 +345,6 @@ int main()
             bPause = true;
             endScreen(window, 2);
         }
-
         if(!bPause && !heroesAliveInParty(&heroes, 1))
         {
             bPause = true;
@@ -327,10 +353,8 @@ int main()
 
         if (!bPause)
         {
-
             artificial.play();
 
-            //check if hero dead
             for (auto iHero = heroes.begin(); iHero != heroes.end(); iHero++)
             {
                 if (!(*iHero)->update())
@@ -343,7 +367,6 @@ int main()
                 
             }
             
-            //draw projectiles & check if hit
             for (auto iPro=projectiles.begin(); iPro!=projectiles.end(); iPro++)
             {
                 (*iPro)->update();
@@ -357,7 +380,6 @@ int main()
                     window->draw(*(*iPro)->getSprite());
             }
         }
-
         if (bPause)
         {
             for (auto hero : heroes)

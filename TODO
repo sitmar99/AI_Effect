@@ -1,13 +1,16 @@
+---Program---
+[] check for memory leaks
+
 ---Logic---
 [X] Knight attack
-[] Collision detection - what's the approach
+[] Collision detection
 
 ---Drawing---
 [X] Draw projectiles over targets
 
 ---Entities---
 [X] getPosition() as getSprite()->getPosition()
-[] saving sprites?
+[] saving sprites - better way?
 
 ---Heroes---
 [X] delay between everything (attack, specialAttack)
@@ -42,7 +45,7 @@
 [X] heroes clipboard
 [X] drag and drop heroes
 [X] pick AI => set AI ID
-[] remove heroes
+[X] remove heroes
 
 ---AI creator---
 [] everything
