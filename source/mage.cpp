@@ -44,7 +44,6 @@ Mage::Mage(sf::Vector2f pos, int party): Hero("sprites/mage.png", pos, party)
     setRateOfAttack(3);
     setRateOfSpecialAttack(10);
 }
-
 Mage::Mage(sf::Vector2f pos, int party, int AiID): Hero("sprites/mage.png", pos, party, AiID)
 {
     setType(2);
@@ -54,7 +53,6 @@ Mage::Mage(sf::Vector2f pos, int party, int AiID): Hero("sprites/mage.png", pos,
     setRateOfAttack(3);
     setRateOfSpecialAttack(10);
 }
-
 Mage::Mage(std::string pathToSprite, sf::Vector2f pos, int party): Hero(pathToSprite, pos, party)
 {
     setType(2);

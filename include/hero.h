@@ -12,15 +12,14 @@ private:
     int party;
     int range;
     int defence;
-    int rateOfAttack;       //TODO change to 'delayBetweenAttacks'
-    int rateOfSpecialAttack;
+    int iDelayBetweenAttacks;
+    int iDelayBetweenSpecialAttacks;
     time_t timeAttacked;
     time_t timeSpecialAttacked;
     bool specialAttacked;
     int specialAttackDuration;
 
 public:
-
     int getAiID() { return aiID; }
     void setAiID(int newID) { aiID = newID; }
     int getType() { return this->type; }
@@ -31,10 +30,10 @@ public:
     void setRange(int newRange) { range = newRange; }
     int getDefence() { return defence; }
     void setDefence(int newDefence) { range = newDefence; }
-    int getRateOfAttack() { return rateOfAttack; }
-    void setRateOfAttack(int newRateOfAttack) { rateOfAttack = newRateOfAttack; }
-    int getRateOfSpecialAttack() { return rateOfSpecialAttack; }
-    void setRateOfSpecialAttack(int newRateOfSpecialAttack) { rateOfSpecialAttack = newRateOfSpecialAttack; }
+    int getRateOfAttack() { return iDelayBetweenAttacks; }
+    void setRateOfAttack(int newRateOfAttack) { iDelayBetweenAttacks = newRateOfAttack; }
+    int getRateOfSpecialAttack() { return iDelayBetweenSpecialAttacks; }
+    void setRateOfSpecialAttack(int newRateOfSpecialAttack) { iDelayBetweenSpecialAttacks = newRateOfSpecialAttack; }
     time_t getTimeAttacked() { return timeAttacked; }
     void setTimeAttacked(time_t newTimeAttacked) { timeAttacked = newTimeAttacked; }
     time_t getTimeSpecialAttacked() { return timeSpecialAttacked; }

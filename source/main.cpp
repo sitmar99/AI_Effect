@@ -100,7 +100,6 @@ void selectAI(std::vector<Hero*>* heroes, Hero* hero)
         AiWindow.display();
     }
 }
-
 void endScreen(sf::RenderWindow* window, int winner)
 {
     sf::RenderWindow endScreen(sf::VideoMode(400,200), "endScreen", sf::Style::None);
@@ -164,7 +163,6 @@ Hero* heroPressed(std::vector<Hero*>* heroes, sf::Vector2f mousePos)
 
 int main()
     {
-    //zmienne
     bool bPause = true;
     int iGameOver = 0;
     Hero* hDraged = nullptr;
@@ -176,20 +174,16 @@ int main()
     std::vector<Projectile*> projectiles;
     Ai artificial(&heroes, &projectiles);
 
-    //Wczytywanie tła
     sf::Texture *tBackground = new sf::Texture;
     sf::Sprite *sBackground = new sf::Sprite;
     tBackground->loadFromFile("sprites/board.png");
     sBackground->setTexture(*tBackground);
     sBackground->setScale(sf::Vector2f(3,3));
 
-
-    //generowanie okna
     sf::Event event;
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(width, height), "AI Effect", sf::Style::Default);
     window->setFramerateLimit(60);
 
-    //dodanie guzikow
     buttons.push_back(new Button("sprites/reset.png", sf::Vector2f(2, 602), 0));
     buttons.push_back(new Button("sprites/play.png", sf::Vector2f(52, 602), 1));
     buttons.push_back(new Button("sprites/pause.png", sf::Vector2f(102, 602), 2));
@@ -201,7 +195,6 @@ int main()
     buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(402, 602), 8));
     buttons.push_back(new Button("sprites/trash.png", sf::Vector2f(452, 602), 9));
 
-    //glowna petla okna
     while(window->isOpen())
     {
         while(window->pollEvent(event))
@@ -320,12 +313,6 @@ int main()
                 case sf::Keyboard::Space:
                     bPause = !bPause;
                     break;
-                case sf::Keyboard::A:   //hard coded move up
-                    heroes[1]->setDestination(sf::Vector2f(heroes[1]->getSprite()->getPosition().x, heroes[1]->getSprite()->getPosition().y-58));
-                    break;
-                case sf::Keyboard::S:   //hard coded ai testing
-                    artificial.play();
-                    break;
                 default:
                     break;
                 }
@@ -336,9 +323,9 @@ int main()
             }
         }
 
-        //clear window & draw background
         window->clear(sf::Color::Black);
         window->draw(*sBackground);
+
         if(!bPause && !heroesAliveInParty(&heroes, 0))
         {
             bPause = true;
@@ -414,37 +401,3 @@ int main()
 
     return 0;
 }
-
-        //draw heroes (old)
-        // for (auto ent : heroes)
-        // {
-        //     if (ent)
-        //     {
-        //         ent->update();
-        //         window->draw(*ent->getSprite());
-        //     }
-        // }
-
-        //draw grid
-        // for (int x=1; x<size; x++)
-        // {
-        //     sf::RectangleShape line(sf::Vector2f(3,600));
-        //     line.setPosition(int(x*600/size), 0);
-        //     window->draw(line);
-        // }
-        // for (int y=1; y<size; y++)
-        // {
-        //     sf::RectangleShape line(sf::Vector2f(600, 3));
-        //     line.setPosition(0, int(y*600/size));
-        //     window->draw(line);
-        // }
-        
-        //draw projectiles (old)
-        // for (auto ent : projectiles)
-        // {
-        //     if (ent)
-        //     {
-        //         ent->update();
-        //         window->draw(*ent->getSprite());
-        //     }
-        // }

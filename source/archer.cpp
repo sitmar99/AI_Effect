@@ -53,7 +53,6 @@ Archer::Archer(sf::Vector2f pos, int party): Hero("sprites/archer.png", pos, par
     setRateOfSpecialAttack(10);
     setSpecialAttackDuration(5);
 }
-
 Archer::Archer(sf::Vector2f pos, int party, int AiID): Hero("sprites/archer.png", pos, party, AiID)
 {
     setType(0);
@@ -64,7 +63,6 @@ Archer::Archer(sf::Vector2f pos, int party, int AiID): Hero("sprites/archer.png"
     setRateOfSpecialAttack(10);
     setSpecialAttackDuration(5);
 }
-
 Archer::Archer(std::string pathToSprite, sf::Vector2f pos, int party): Hero(pathToSprite, pos, party)
 {
     setType(0);

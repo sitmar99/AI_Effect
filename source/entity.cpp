@@ -15,20 +15,17 @@ bool Entity::update()
     if (hp <= 0)
         return false;
 
-
-    iPos = sf::Vector2i(sprite.getPosition())/75;
-
     if (destination != sprite.getPosition())
     {
-        sf::Vector2f unitDir(destination.x - sprite.getPosition().x,destination.y - sprite.getPosition().y);
-        float distance = sqrtf(unitDir.x*unitDir.x+unitDir.y*unitDir.y);
-        unitDir /= distance;
+        sf::Vector2f vecDirection(destination.x - sprite.getPosition().x,destination.y - sprite.getPosition().y);
+        float distance = sqrtf(vecDirection.x*vecDirection.x+vecDirection.y*vecDirection.y);
+        vecDirection /= distance;
 
         if (distance < speed)
             sprite.setPosition(sf::Vector2f(destination));
         else
         {
-            sf::Vector2f vel(unitDir * speed);
+            sf::Vector2f vel(vecDirection * speed);
             sprite.move(vel);
         }
     }

@@ -17,7 +17,6 @@ private:
     int dmg;
     int hp = 1;
 
-    sf::Vector2i iPos;
     sf::Vector2f destination;
     Entity* target;
     float speed = 2.f;
@@ -34,7 +33,6 @@ public:
     void incHp() { hp++; }
     void decHpBy(int iSub) { hp -= iSub; }
 
-    sf::Vector2i getIPos() { return iPos; }
     sf::Vector2f getFPos() { return sprite.getPosition(); }
     void setDestination(sf::Vector2f newDest) { destination = newDest; }
     sf::Vector2f getDestination() { return destination; }
