@@ -1,5 +1,6 @@
 ---Program---
-[] check for memory leaks
+[X] check for memory leaks
+[] window->draw(*sBackground); - leak?
 
 ---Logic---
 [X] Knight attack

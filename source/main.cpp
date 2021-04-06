@@ -339,7 +339,6 @@ int main()
         //clear window & draw background
         window->clear(sf::Color::Black);
         window->draw(*sBackground);
-        
         if(!bPause && !heroesAliveInParty(&heroes, 0))
         {
             bPause = true;
@@ -355,41 +354,45 @@ int main()
         {
             artificial.play();
 
-            for (auto iHero = heroes.begin(); iHero != heroes.end(); iHero++)
-            {
-                if (!(*iHero)->update())
+            if(heroes.size())
+                for (auto iHero = heroes.begin(); iHero != heroes.end(); iHero++)
                 {
-                    delete *iHero;
-                    heroes.erase(iHero--);
+                    if (!(*iHero)->update())
+                    {
+                        delete *iHero;
+                        heroes.erase(iHero--);
+                    }
+                    else
+                        window->draw(*(*iHero)->getSprite());
+                    
                 }
-                else
-                    window->draw(*(*iHero)->getSprite());
-                
-            }
             
-            for (auto iPro=projectiles.begin(); iPro!=projectiles.end(); iPro++)
-            {
-                (*iPro)->update();
-                if ((*iPro)->getSprite()->getPosition() == (*iPro)->getTarget()->getSprite()->getPosition())
+            if(projectiles.size())
+                for (auto iPro=projectiles.begin(); iPro!=projectiles.end(); iPro++)
                 {
-                    (*iPro)->getTarget()->decHpBy((*iPro)->getDmg());
-                    delete *iPro;
-                    projectiles.erase(iPro--);
+                    (*iPro)->update();
+                    if ((*iPro)->getSprite()->getPosition() == (*iPro)->getTarget()->getSprite()->getPosition())
+                    {
+                        (*iPro)->getTarget()->decHpBy((*iPro)->getDmg());
+                        delete *iPro;
+                        projectiles.erase(iPro--);
+                    }
+                    else
+                        window->draw(*(*iPro)->getSprite());
                 }
-                else
-                    window->draw(*(*iPro)->getSprite());
-            }
         }
         if (bPause)
         {
-            for (auto hero : heroes)
-            {
-                window->draw(*hero->getSprite());
-            }
-            for (auto proj : projectiles)
-        {
-            window->draw(*proj->getSprite());
-        }
+            if (heroes.size())
+                for (auto hero : heroes)
+                {
+                    window->draw(*hero->getSprite());
+                }
+            if (projectiles.size())
+                for (auto proj : projectiles)
+                {
+                    window->draw(*proj->getSprite());
+                }
         }
         for (auto button : buttons)
         {
