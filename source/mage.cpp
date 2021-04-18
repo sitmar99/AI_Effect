@@ -30,9 +30,9 @@ void Mage::specialAttack(Hero* target )
     }
 }
 
-Hero* Mage::copy()
+std::shared_ptr<Hero> Mage::copy()
 {
-    return new Mage(getFPos(), getParty(), getAiID());
+    return std::make_shared<Mage>(getFPos(), getParty(), getAiID());
 }
 
 Mage::Mage(sf::Vector2f pos, int party): Hero("sprites/mage.png", pos, party)

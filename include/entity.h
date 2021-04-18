@@ -7,6 +7,7 @@
 
 #include <string>
 #include <iostream>
+#include <memory>
 
 class Entity
 {
@@ -40,6 +41,7 @@ public:
     Entity* getTarget() { return target; }
 
     float distanceTo(Entity *ent);
+    float distanceTo(std::shared_ptr<Entity> ent);
     bool update();
 
     Entity() {};

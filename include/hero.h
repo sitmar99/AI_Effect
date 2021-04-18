@@ -3,6 +3,7 @@
 
 #include "entity.h"
 #include "projectile.h"
+#include <memory>
 
 class Hero: public Entity
 {
@@ -46,15 +47,15 @@ public:
     virtual bool update() = 0;
     virtual void attack(Hero* target, std::vector<Projectile*> *projectiles) = 0;
     virtual void specialAttack(Hero* target) = 0;
-    virtual Hero* copy() = 0;
+    virtual std::shared_ptr<Hero> copy() = 0;
 
     void moveToTarget() { setDestination(getTarget()->getSprite()->getPosition()); }
-    Hero* nearestAlly(std::vector<Hero*> *heroes);
-    Hero* nearestEnemy(std::vector<Hero*> *heroes);
-    Hero* allyWithLowestHP(std::vector<Hero*> *heroes);
-    Hero* enemyWithLowestHP(std::vector<Hero*> *heroes);
-    bool allyInRange(std::vector<Hero*> *heroes);
-    bool enemyInRange(std::vector<Hero*> *heroes);
+    Hero* nearestAlly(std::vector<std::shared_ptr<Hero>> *heroes);
+    Hero* nearestEnemy(std::vector<std::shared_ptr<Hero>> *heroes);
+    Hero* allyWithLowestHP(std::vector<std::shared_ptr<Hero>> *heroes);
+    Hero* enemyWithLowestHP(std::vector<std::shared_ptr<Hero>> *heroes);
+    bool allyInRange(std::vector<std::shared_ptr<Hero>> *heroes);
+    bool enemyInRange(std::vector<std::shared_ptr<Hero>> *heroes);
 
     Hero(std::string pathToSprite, sf::Vector2f pos, int party);
     Hero(std::string pathToSprite, sf::Vector2f pos, int party, int AiID);

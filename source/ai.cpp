@@ -21,7 +21,7 @@ void Ai::play()
         //Name: Knight tank
         case 2:
             hero->attack(hero->nearestEnemy(heroes), projectiles);
-            hero->specialAttack(hero);
+            hero->specialAttack(hero.get());
             break;
 
         //Name: Knight dps
@@ -42,7 +42,7 @@ void Ai::play()
     }
 }
 
-Ai::Ai(std::vector<Hero*> *heroesPtr, std::vector<Projectile*> *projectilesPtr)
+Ai::Ai(std::vector<std::shared_ptr<Hero>> *heroesPtr, std::vector<Projectile*> *projectilesPtr)
 {
     heroes = heroesPtr;
     projectiles = projectilesPtr;

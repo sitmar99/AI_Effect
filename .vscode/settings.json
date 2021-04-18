@@ -48,6 +48,10 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "cerrno": "cpp",
+        "ios": "cpp",
+        "locale": "cpp",
+        "queue": "cpp"
     },
 }

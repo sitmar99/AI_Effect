@@ -20,7 +20,7 @@ public:
 
     Button() {};
     Button(std::string pathToSprite, sf::Vector2f pos, int ID);
-    ~Button();
+    ~Button() {};
 };
 
 #endif

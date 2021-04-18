@@ -12,7 +12,7 @@ public:
     bool update();
     void attack(Hero* target, std::vector<Projectile*> *projectiles);
     void specialAttack(Hero* target);
-    Hero* copy();
+    std::shared_ptr<Hero> copy();
 
     Mage(sf::Vector2f pos, int party);
     Mage(sf::Vector2f pos, int party, int AiID);

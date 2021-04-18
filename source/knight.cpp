@@ -36,10 +36,9 @@ void Knight::specialAttack(Hero* target)
         setSpecialAttacked(true);
     }
 }
-
-Hero* Knight::copy()
+std::shared_ptr<Hero> Knight::copy()
 {
-    return new Knight(getFPos(), getParty(), getAiID());
+    return std::make_shared<Knight>(getFPos(), getParty(), getAiID());
 }
 
 Knight::Knight(sf::Vector2f pos, int party): Hero("sprites/knight.png", pos, party)

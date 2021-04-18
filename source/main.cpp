@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <math.h>
+#include <memory>
 #include "entity.h"
 #include "button.h"
 #include "ai.h"
@@ -19,7 +20,7 @@ int width = 600;
 int height = 650;
 int size = 8;
 
-void selectAI(std::vector<Hero*>* heroes, Hero* hero)
+void selectAI(std::vector<std::shared_ptr<Hero>>* heroes, Hero* hero)
 {
     int iID = 0;
     int size = 16;
@@ -129,7 +130,7 @@ void endScreen(sf::RenderWindow* window, int winner)
     }
 }
 
-int heroesAliveInParty(std::vector<Hero*>* heroes, int party)
+int heroesAliveInParty(std::vector<std::shared_ptr<Hero>>* heroes, int party)
 {
     int alive = 0;
 
@@ -141,7 +142,7 @@ int heroesAliveInParty(std::vector<Hero*>* heroes, int party)
     return alive;
 }
 
-int buttonPressed(std::vector<Button*>* buttons, sf::Vector2f mousePos)
+int buttonPressed(std::vector<std::shared_ptr<Button>>* buttons, sf::Vector2f mousePos)
 {
     for (auto iButton : (*buttons))
     {
@@ -151,7 +152,7 @@ int buttonPressed(std::vector<Button*>* buttons, sf::Vector2f mousePos)
     }
     return -1;
 }
-Hero* heroPressed(std::vector<Hero*>* heroes, sf::Vector2f mousePos)
+std::shared_ptr<Hero> heroPressed(std::vector<std::shared_ptr<Hero>>* heroes, sf::Vector2f mousePos)
 {
     for(auto iHero : (*heroes))
     {
@@ -165,12 +166,11 @@ int main()
     {
     bool bPause = true;
     int iGameOver = 0;
-    Hero* hDraged = nullptr;
+    std::shared_ptr<Hero> hDraged = nullptr;
 
-    sf::Vector2f mysz;
-    std::vector<Button*> buttons;
-    std::vector<Hero*> heroes;
-    std::vector<Hero*> heroesCopy;
+    std::vector<std::shared_ptr<Button>> buttons;
+    std::vector<std::shared_ptr<Hero>> heroes;
+    std::vector<std::shared_ptr<Hero>> heroesCopy;
     std::vector<Projectile*> projectiles;
     Ai artificial(&heroes, &projectiles);
 
@@ -184,16 +184,16 @@ int main()
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(width, height), "AI Effect", sf::Style::Default);
     window->setFramerateLimit(60);
 
-    buttons.push_back(new Button("sprites/reset.png", sf::Vector2f(2, 602), 0));
-    buttons.push_back(new Button("sprites/play.png", sf::Vector2f(52, 602), 1));
-    buttons.push_back(new Button("sprites/pause.png", sf::Vector2f(102, 602), 2));
-    buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(152, 602), 3));
-    buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(202, 602), 4));
-    buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(252, 602), 5));
-    buttons.push_back(new Button("sprites/knight.png", sf::Vector2f(302, 602), 6));
-    buttons.push_back(new Button("sprites/archer.png", sf::Vector2f(352, 602), 7));
-    buttons.push_back(new Button("sprites/mage.png", sf::Vector2f(402, 602), 8));
-    buttons.push_back(new Button("sprites/trash.png", sf::Vector2f(452, 602), 9));
+    buttons.push_back(std::make_shared<Button>("sprites/reset.png", sf::Vector2f(2, 602), 0));
+    buttons.push_back(std::make_shared<Button>("sprites/play.png", sf::Vector2f(52, 602), 1));
+    buttons.push_back(std::make_shared<Button>("sprites/pause.png", sf::Vector2f(102, 602), 2));
+    buttons.push_back(std::make_shared<Button>("sprites/knight.png", sf::Vector2f(152, 602), 3));
+    buttons.push_back(std::make_shared<Button>("sprites/archer.png", sf::Vector2f(202, 602), 4));
+    buttons.push_back(std::make_shared<Button>("sprites/mage.png", sf::Vector2f(252, 602), 5));
+    buttons.push_back(std::make_shared<Button>("sprites/knight.png", sf::Vector2f(302, 602), 6));
+    buttons.push_back(std::make_shared<Button>("sprites/archer.png", sf::Vector2f(352, 602), 7));
+    buttons.push_back(std::make_shared<Button>("sprites/mage.png", sf::Vector2f(402, 602), 8));
+    buttons.push_back(std::make_shared<Button>("sprites/trash.png", sf::Vector2f(452, 602), 9));
 
     while(window->isOpen())
     {
@@ -232,27 +232,27 @@ int main()
                         bPause = true;
                         break;
                     case 3:
-                        hDraged = new Knight(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
+                        hDraged = std::make_shared<Knight>(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
                         heroes.push_back(hDraged);
                         break;
                     case 4:
-                        hDraged = new Archer(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
+                        hDraged =  std::make_shared<Archer>(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
                         heroes.push_back(hDraged);
                         break;
                     case 5:
-                        hDraged = new Mage(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
+                        hDraged = std::make_shared<Mage>(sf::Vector2f(sf::Mouse::getPosition(*window)), 0);
                         heroes.push_back(hDraged);
                         break;
                     case 6:
-                        hDraged = new Knight(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
+                        hDraged = std::make_shared<Knight>(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
                         heroes.push_back(hDraged);
                         break;
                     case 7:
-                        hDraged = new Archer(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
+                        hDraged = std::make_shared<Archer>(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
                         heroes.push_back(hDraged);
                         break;
                     case 8:
-                        hDraged = new Mage(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
+                        hDraged = std::make_shared<Mage>(sf::Vector2f(sf::Mouse::getPosition(*window)), 1);
                         heroes.push_back(hDraged);
                         break;
                     default:
@@ -263,7 +263,7 @@ int main()
                     for (auto hero : heroes)
                     {
                         if (hero->getSprite()->getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(*window))))
-                            selectAI(&heroes, hero);
+                            selectAI(&heroes, hero.get());
                     }
                     break;
                 default:
@@ -288,7 +288,6 @@ int main()
                         {
                             if (*iHero == hDraged)
                             {
-                                delete *iHero;
                                 heroes.erase(iHero--);
                                 break;
                             }
@@ -346,7 +345,6 @@ int main()
                 {
                     if (!(*iHero)->update())
                     {
-                        delete *iHero;
                         heroes.erase(iHero--);
                     }
                     else
@@ -389,11 +387,7 @@ int main()
         window->display();
     }
 
-    for (auto ent: heroes)
-        delete ent;
     heroes.clear();
-    for (auto ent: heroesCopy)
-        delete ent;
     heroesCopy.clear();
     for (auto ent: projectiles)
         delete ent;

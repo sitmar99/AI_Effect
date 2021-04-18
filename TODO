@@ -28,6 +28,7 @@
 [] middleOfEnemies()
 [] midleOfBoard()
 [] change 'rateOfAttack' to 'delayBetweenAttack'
+[] zrobic copy() jako template
 
 ---Items---
 [] medKit

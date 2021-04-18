@@ -2,7 +2,15 @@
 #include <math.h>
 #include <iostream>
 
-float Entity::distanceTo(Entity* ent)
+float Entity::distanceTo(Entity *ent)
+{
+    sf::Vector2f here = this->getSprite()->getPosition();
+    sf::Vector2f there = ent->getSprite()->getPosition();
+
+    return sqrtf(powf(fabs(here.x - there.x), 2) + powf(fabs(here.y - there.y), 2));
+}
+
+float Entity::distanceTo(std::shared_ptr<Entity> ent)
 {
     sf::Vector2f here = this->getSprite()->getPosition();
     sf::Vector2f there = ent->getSprite()->getPosition();
