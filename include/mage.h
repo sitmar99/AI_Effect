@@ -10,7 +10,7 @@ private:
 
 public:
     bool update();
-    void attack(Hero* target, std::vector<Projectile*> *projectiles);
+    void attack(Hero* target, std::vector<std::shared_ptr<Projectile>> *projectiles);
     void specialAttack(Hero* target);
     std::shared_ptr<Hero> copy();
 

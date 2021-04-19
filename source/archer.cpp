@@ -12,13 +12,13 @@ bool Archer::update()
     return Entity::update();
 }
 
-void Archer::attack(Hero* target, std::vector<Projectile*> *projectiles)
+void Archer::attack(Hero* target, std::vector<std::shared_ptr<Projectile>> *projectiles)
 {
     setTarget(target);
     if (distanceTo(target) <= getRange() && time(NULL) - getTimeAttacked() >= getRateOfAttack())
     {
         setDestination(getSprite()->getPosition());
-        projectiles->push_back(new Arrow(getSprite()->getPosition(), target, getDmg()));
+        projectiles->push_back(std::make_shared<Arrow>(getSprite()->getPosition(), target, getDmg()));
         setTimeAttacked(time(NULL));
     }
     else if (distanceTo(target) > getRange())

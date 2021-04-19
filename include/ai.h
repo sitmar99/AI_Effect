@@ -15,12 +15,12 @@ class Ai
 {
 private:
     std::vector<std::shared_ptr<Hero>> *heroes;
-    std::vector<Projectile*> *projectiles;
+    std::vector<std::shared_ptr<Projectile>> *projectiles;
 
 public:
     void play();
 
-    Ai(std::vector<std::shared_ptr<Hero>> *heroesPtr, std::vector<Projectile*> *projectilesPtr);
+    Ai(std::vector<std::shared_ptr<Hero>> *heroesPtr, std::vector<std::shared_ptr<Projectile>> *projectilesPtr);
     ~Ai() {};
 };
 

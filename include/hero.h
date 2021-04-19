@@ -45,7 +45,7 @@ public:
     void setSpecialAttackDuration(int newSpecialAttackDuration) { specialAttackDuration = newSpecialAttackDuration; }
 
     virtual bool update() = 0;
-    virtual void attack(Hero* target, std::vector<Projectile*> *projectiles) = 0;
+    virtual void attack(Hero* target, std::vector<std::shared_ptr<Projectile>> *projectiles) = 0;
     virtual void specialAttack(Hero* target) = 0;
     virtual std::shared_ptr<Hero> copy() = 0;
 

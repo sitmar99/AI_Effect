@@ -11,13 +11,13 @@ bool Knight::update()
     return Entity::update();
 }
 
-void Knight::attack(Hero* target, std::vector<Projectile*> *projectiles)
+void Knight::attack(Hero* target, std::vector<std::shared_ptr<Projectile>> *projectiles)
 {
     setTarget(target);
     if (distanceTo(target) <= getRange() && time(NULL) - getTimeAttacked() >= getRateOfAttack())
     {
         setDestination(getSprite()->getPosition());
-        projectiles->push_back(new Swing(target->getSprite()->getPosition() - sf::Vector2f(10,10), target, getDmg()));
+        projectiles->push_back(std::make_shared<Swing>(target->getSprite()->getPosition() - sf::Vector2f(10,10), target, getDmg()));
         setTimeAttacked(time(NULL));
     }
     else if (distanceTo(target) > getRange())

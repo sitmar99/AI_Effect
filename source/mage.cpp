@@ -5,13 +5,13 @@ bool Mage::update()
     return Entity::update();
 }
 
-void Mage::attack(Hero* target, std::vector<Projectile*> *projectiles)
+void Mage::attack(Hero* target, std::vector<std::shared_ptr<Projectile>> *projectiles)
 {
     setTarget(target);
     if (distanceTo(target) <= getRange() && time(NULL) - getTimeAttacked() >= getRateOfAttack())
     {
         setDestination(getSprite()->getPosition());
-        projectiles->push_back(new Fireball(getSprite()->getPosition(), target, getDmg()));
+        projectiles->push_back(std::make_shared<Fireball>(getSprite()->getPosition(), target, getDmg()));
         setTimeAttacked(time(NULL));
     }
     else if (distanceTo(target) > getRange())

@@ -171,7 +171,7 @@ int main()
     std::vector<std::shared_ptr<Button>> buttons;
     std::vector<std::shared_ptr<Hero>> heroes;
     std::vector<std::shared_ptr<Hero>> heroesCopy;
-    std::vector<Projectile*> projectiles;
+    std::vector<std::shared_ptr<Projectile>> projectiles;
     Ai artificial(&heroes, &projectiles);
 
     sf::Texture *tBackground = new sf::Texture;
@@ -216,8 +216,6 @@ int main()
                     case 0:
                         heroes = heroesCopy;
                         heroesCopy.clear();
-                        for (auto proj : projectiles)
-                            delete proj;
                         projectiles.clear();
                         bPause = true;
                         break;
@@ -359,7 +357,6 @@ int main()
                     if ((*iPro)->getSprite()->getPosition() == (*iPro)->getTarget()->getSprite()->getPosition())
                     {
                         (*iPro)->getTarget()->decHpBy((*iPro)->getDmg());
-                        delete *iPro;
                         projectiles.erase(iPro--);
                     }
                     else
@@ -387,10 +384,9 @@ int main()
         window->display();
     }
 
+    buttons.clear();
     heroes.clear();
     heroesCopy.clear();
-    for (auto ent: projectiles)
-        delete ent;
     projectiles.clear();
 
     return 0;

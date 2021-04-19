@@ -42,7 +42,7 @@ void Ai::play()
     }
 }
 
-Ai::Ai(std::vector<std::shared_ptr<Hero>> *heroesPtr, std::vector<Projectile*> *projectilesPtr)
+Ai::Ai(std::vector<std::shared_ptr<Hero>> *heroesPtr, std::vector<std::shared_ptr<Projectile>> *projectilesPtr)
 {
     heroes = heroesPtr;
     projectiles = projectilesPtr;
