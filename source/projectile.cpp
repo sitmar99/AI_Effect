@@ -14,5 +14,5 @@ void Projectile::update()
     sprite->setRotation(rot);
 }
 
-Projectile::Projectile(std::string pathToSprite, sf::Vector2f pos): Entity(pathToSprite, pos) {};
-Projectile::Projectile(std::string pathToSprite, sf::Vector2f pos, Entity* target): Entity(pathToSprite, pos, target) {};
+Projectile::Projectile(std::string pathToSprite, sf::Vector2f pos): Entity(pathToSprite, pos) { setSpeed(4.f); }
+Projectile::Projectile(std::string pathToSprite, sf::Vector2f pos, Entity* target): Entity(pathToSprite, pos, target) { setSpeed(4.f); }

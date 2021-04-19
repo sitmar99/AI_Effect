@@ -30,7 +30,7 @@ public:
     int getRange() { return range; }
     void setRange(int newRange) { range = newRange; }
     int getDefence() { return defence; }
-    void setDefence(int newDefence) { range = newDefence; }
+    void setDefence(int newDefence) { defence = newDefence; }
     int getRateOfAttack() { return iDelayBetweenAttacks; }
     void setRateOfAttack(int newRateOfAttack) { iDelayBetweenAttacks = newRateOfAttack; }
     int getRateOfSpecialAttack() { return iDelayBetweenSpecialAttacks; }

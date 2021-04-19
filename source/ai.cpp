@@ -36,6 +36,10 @@ void Ai::play()
             if (hero->enemyInRange(heroes))
                 hero->attack(hero->nearestEnemy(heroes), projectiles);
             break;
+        //Name: Dummy
+        case 5:
+            hero->setDestination(hero->getFPos());
+            break;
         default:
             break;
         }

@@ -28,6 +28,7 @@ void Knight::attack(Hero* target, std::vector<std::shared_ptr<Projectile>> *proj
 
 void Knight::specialAttack(Hero* target)
 {
+    printf("%d\n", getRange());
     if ((!target || target == this) && time(NULL) - getTimeSpecialAttacked() >= getRateOfSpecialAttack())
     {
         setDefence(getDefence() + 1);
@@ -35,6 +36,7 @@ void Knight::specialAttack(Hero* target)
         setTimeSpecialAttacked(time(NULL));
         setSpecialAttacked(true);
     }
+    printf("%d\n", getRange());
 }
 std::shared_ptr<Hero> Knight::copy()
 {

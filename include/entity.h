@@ -33,6 +33,7 @@ public:
     void decHp() { hp--; }
     void incHp() { hp++; }
     void decHpBy(int iSub) { hp -= iSub; }
+    void setSpeed(float newSpeed) { speed = newSpeed; }
 
     sf::Vector2f getFPos() { return sprite.getPosition(); }
     void setDestination(sf::Vector2f newDest) { destination = newDest; }
