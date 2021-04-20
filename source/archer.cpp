@@ -1,11 +1,10 @@
 #include "archer.h"
-#include <iostream>
 
 bool Archer::update()
 {
     if(getSpecialAttacked())
     {
-        getSprite()->setTextureRect(sf::IntRect(16,0,32,16));
+        getSprite()->setTextureRect(sf::IntRect(16, 0, 32, 16));
     }
     if (getSpecialAttacked() && time(NULL) - getTimeSpecialAttacked() >= getSpecialAttackDuration())
     {
@@ -14,6 +13,7 @@ bool Archer::update()
         setSpecialAttacked(false);
         getSprite()->setTextureRect(sf::IntRect(0,0,16,16));
     }
+    
     return Entity::update();
 }
 

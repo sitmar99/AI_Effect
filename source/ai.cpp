@@ -8,9 +8,7 @@ void Ai::play()
         {
         //Name: Archer sniper
         case 0:
-            if (!hero->enemyInRange(heroes))
-                hero->specialAttack(nullptr);
-            hero->attack(hero->enemyWithLowestHP(heroes), projectiles);
+            hero->specialAttack(nullptr);
             break;
 
         //Name: Archer dps
@@ -20,8 +18,9 @@ void Ai::play()
         
         //Name: Knight tank
         case 2:
-            hero->attack(hero->nearestEnemy(heroes), projectiles);
+            // hero->attack(hero->nearestEnemy(heroes), projectiles);
             hero->specialAttack(hero.get());
+            hero->setDestination(hero->getFPos());
             break;
 
         //Name: Knight dps
@@ -32,9 +31,10 @@ void Ai::play()
         //Name: Mage
         case 4:
             if (hero->allyInRange(heroes))
-                hero->specialAttack(hero->allyWithLowestHP(heroes));
-            if (hero->enemyInRange(heroes))
-                hero->attack(hero->nearestEnemy(heroes), projectiles);
+                hero->specialAttack(hero->nearestAlly(heroes));
+            // if (hero->enemyInRange(heroes))
+            //     hero->attack(hero->nearestEnemy(heroes), projectiles);
+            hero->setDestination(hero->getFPos());
             break;
         //Name: Dummy
         case 5:

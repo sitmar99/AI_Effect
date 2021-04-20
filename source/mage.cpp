@@ -22,11 +22,14 @@ void Mage::attack(Hero* target, std::vector<std::shared_ptr<Projectile>> *projec
 
 void Mage::specialAttack(Hero* target )
 {
-    if (target && time(NULL) - getTimeSpecialAttacked() >= getRateOfSpecialAttack())
+    if (!getTimeSpecialAttacked() && target && time(NULL) - getTimeSpecialAttacked() >= getRateOfSpecialAttack())
     {
+        printf("here\n");
         target->incHp();
+        target->getSprite()->setTextureRect(sf::IntRect(0, 16, 16, 32));
         decHp();
         setTimeSpecialAttacked(time(NULL));
+        setSpecialAttacked(true);
     }
 }
 
@@ -43,6 +46,7 @@ Mage::Mage(sf::Vector2f pos, int party): Hero("sprites/mage.png", pos, party)
     setHp(2);
     setRateOfAttack(3);
     setRateOfSpecialAttack(10);
+    setSpecialAttacked(false);
 }
 Mage::Mage(sf::Vector2f pos, int party, int AiID): Hero("sprites/mage.png", pos, party, AiID)
 {

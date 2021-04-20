@@ -2,12 +2,18 @@
 
 bool Knight::update()
 {
+    if(getSpecialAttacked())
+    {
+        getSprite()->setTextureRect(sf::IntRect(16, 0, 32, 16));
+    }
     if (getSpecialAttacked() && time(NULL) - getTimeSpecialAttacked() >= getSpecialAttackDuration())
     {
         setDefence(getDefence() - 1);
         setDmg(getDmg() * 2);
         setSpecialAttacked(false);
+        getSprite()->setTextureRect(sf::IntRect(0,0,16,16));
     }
+
     return Entity::update();
 }
 
@@ -28,7 +34,6 @@ void Knight::attack(Hero* target, std::vector<std::shared_ptr<Projectile>> *proj
 
 void Knight::specialAttack(Hero* target)
 {
-    printf("%d\n", getRange());
     if ((!target || target == this) && time(NULL) - getTimeSpecialAttacked() >= getRateOfSpecialAttack())
     {
         setDefence(getDefence() + 1);
@@ -36,7 +41,6 @@ void Knight::specialAttack(Hero* target)
         setTimeSpecialAttacked(time(NULL));
         setSpecialAttacked(true);
     }
-    printf("%d\n", getRange());
 }
 std::shared_ptr<Hero> Knight::copy()
 {
@@ -53,7 +57,6 @@ Knight::Knight(sf::Vector2f pos, int party): Hero("sprites/knight.png", pos, par
     setRateOfSpecialAttack(10);
     setSpecialAttackDuration(5);
 }
-
 Knight::Knight(sf::Vector2f pos, int party, int AiID): Hero("sprites/knight.png", pos, party, AiID)
 {
     setType(1);
@@ -64,7 +67,6 @@ Knight::Knight(sf::Vector2f pos, int party, int AiID): Hero("sprites/knight.png"
     setRateOfSpecialAttack(10);
     setSpecialAttackDuration(5);
 }
-
 Knight::Knight(std::string pathToSprite, sf::Vector2f pos, int party): Hero(pathToSprite, pos, party)
 {
     setType(1);

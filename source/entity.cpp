@@ -44,7 +44,7 @@ Entity::Entity(std::string pathToSprite, sf::Vector2f pos)
 {     
     texture.loadFromFile(pathToSprite);
     sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(0,0,16,16));
+    sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
 
     sprite.setScale(sf::Vector2f(3,3));
     sprite.setOrigin(8, 8);
