@@ -3,11 +3,16 @@
 
 bool Archer::update()
 {
+    if(getSpecialAttacked())
+    {
+        getSprite()->setTextureRect(sf::IntRect(16,0,32,16));
+    }
     if (getSpecialAttacked() && time(NULL) - getTimeSpecialAttacked() >= getSpecialAttackDuration())
     {
         setRange(getRange() / 2);
         setRateOfAttack(getRateOfAttack() / 2);
         setSpecialAttacked(false);
+        getSprite()->setTextureRect(sf::IntRect(0,0,16,16));
     }
     return Entity::update();
 }

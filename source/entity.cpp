@@ -44,9 +44,11 @@ Entity::Entity(std::string pathToSprite, sf::Vector2f pos)
 {     
     texture.loadFromFile(pathToSprite);
     sprite.setTexture(texture);
+    sprite.setTextureRect(sf::IntRect(0,0,16,16));
 
     sprite.setScale(sf::Vector2f(3,3));
-    sprite.setOrigin(texture.getSize().x/2.0,texture.getSize().y/2.0);
+    sprite.setOrigin(8, 8);
+    // sprite.setOrigin(texture.getSize().x/2.0,texture.getSize().y/2.0);
     sprite.setPosition(pos);
     destination = pos;
 }

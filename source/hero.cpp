@@ -19,7 +19,6 @@ Hero* Hero::nearestAlly(std::vector<std::shared_ptr<Hero>> *heroes)
 
     return closestAlly ? closestAlly.get() : this;
 }
-
 Hero* Hero::nearestEnemy(std::vector<std::shared_ptr<Hero>> *heroes)
 {
     float minDistance = 600;
@@ -39,7 +38,6 @@ Hero* Hero::nearestEnemy(std::vector<std::shared_ptr<Hero>> *heroes)
 
     return closestEnemy.get();
 }
-
 Hero* Hero::allyWithLowestHP(std::vector<std::shared_ptr<Hero>> *heroes)
 {
     int lowestHP = getHp();
@@ -56,7 +54,6 @@ Hero* Hero::allyWithLowestHP(std::vector<std::shared_ptr<Hero>> *heroes)
 
     return lowestAlly ? lowestAlly.get() : this;
 }
-
 Hero* Hero::enemyWithLowestHP(std::vector<std::shared_ptr<Hero>> *heroes)
 {
     int lowestHP = 100;
@@ -73,7 +70,6 @@ Hero* Hero::enemyWithLowestHP(std::vector<std::shared_ptr<Hero>> *heroes)
 
     return lowestEnemy.get();
 }
-
 bool Hero::allyInRange(std::vector<std::shared_ptr<Hero>> *heroes)
 {
     for (auto iHero : (*heroes))
@@ -83,7 +79,6 @@ bool Hero::allyInRange(std::vector<std::shared_ptr<Hero>> *heroes)
     }
     return false;
 }
-
 bool Hero::enemyInRange(std::vector<std::shared_ptr<Hero>> *heroes)
 {
     for (auto iHero : (*heroes))
